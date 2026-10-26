@@ -1,0 +1,510 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GamePalse</title>
+    <link rel="stylesheet" href="./styles.css?v=20260729_score_label_v1" />
+    <style id="assistant-critical-style">
+      #assistantPage.page-screen--active {
+        display: block;
+      }
+
+      #assistantPage {
+        min-height: calc(100vh - 112px);
+        padding: 18px 0 0;
+      }
+
+      #assistantPage .assistant-shell {
+        width: min(1080px, calc(100vw - 72px)) !important;
+        min-height: calc(100vh - 170px) !important;
+        margin: 0 auto !important;
+        display: grid !important;
+        grid-template-rows: auto minmax(0, 1fr) !important;
+        gap: 16px !important;
+        border: 0 !important;
+        padding: 0 !important;
+        background: transparent !important;
+      }
+
+      #assistantPage .assistant-brief {
+        width: 100% !important;
+        margin: 0 !important;
+        border: 0 !important;
+        padding: 0 !important;
+        background: transparent !important;
+      }
+
+      #assistantPage .assistant-brief .eyebrow {
+        margin: 0 0 18px !important;
+        background: linear-gradient(90deg, #b89245, #ead592) !important;
+      }
+
+      #assistantPage .assistant-brief h2,
+      #assistantPage .assistant-brief > p {
+        display: none !important;
+      }
+
+      #assistantPage .assistant-prompt-chips {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 10px !important;
+        margin: 0 0 6px !important;
+      }
+
+      #assistantPage .assistant-prompt-chips button {
+        border: 1px solid rgba(234, 213, 146, 0.26) !important;
+        border-radius: 999px !important;
+        padding: 9px 14px !important;
+        color: rgba(243, 240, 232, 0.72) !important;
+        background: rgba(255, 255, 255, 0.055) !important;
+        font-size: 13px !important;
+        font-weight: 800 !important;
+        clip-path: none !important;
+        box-shadow: none !important;
+      }
+
+      #assistantPage .assistant-chat {
+        position: relative !important;
+        display: grid !important;
+        grid-template-rows: auto minmax(430px, 1fr) auto !important;
+        min-height: calc(100vh - 245px) !important;
+        border: 1px solid rgba(234, 213, 146, 0.14) !important;
+        border-radius: 28px !important;
+        overflow: hidden !important;
+        background:
+          radial-gradient(circle at 16% 0%, rgba(234, 213, 146, 0.13), transparent 28%),
+          linear-gradient(180deg, rgba(255, 255, 255, 0.045), transparent 22%),
+          #070707 !important;
+        box-shadow: 0 34px 120px rgba(0, 0, 0, 0.62), inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+      }
+
+      #assistantPage .assistant-chat::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background:
+          linear-gradient(90deg, rgba(234, 213, 146, 0.055) 1px, transparent 1px),
+          linear-gradient(180deg, rgba(234, 213, 146, 0.035) 1px, transparent 1px);
+        background-size: 44px 44px;
+        mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.42), transparent 70%);
+      }
+
+      #assistantPage .assistant-chat__header {
+        position: relative !important;
+        z-index: 1 !important;
+        border-bottom: 1px solid rgba(234, 213, 146, 0.12) !important;
+        padding: 20px 24px !important;
+        background: rgba(0, 0, 0, 0.36) !important;
+        backdrop-filter: blur(16px) !important;
+      }
+
+      #assistantPage .assistant-chat__header span,
+      #assistantPage .assistant-chat__header small {
+        color: rgba(234, 213, 146, 0.72) !important;
+        font-size: 11px !important;
+        letter-spacing: 0.16em !important;
+      }
+
+      #assistantPage .assistant-chat__header strong {
+        color: #f3f0e8 !important;
+        font-size: 23px !important;
+      }
+
+      #assistantPage .assistant-messages {
+        position: relative !important;
+        z-index: 1 !important;
+        overflow-y: auto !important;
+        padding: 34px 32px 28px !important;
+      }
+
+      #assistantPage .assistant-message {
+        display: flex !important;
+        align-items: flex-start !important;
+        gap: 12px !important;
+        margin: 0 0 24px !important;
+      }
+
+      #assistantPage .assistant-message--user {
+        justify-content: flex-end !important;
+      }
+
+      #assistantPage .assistant-avatar {
+        display: grid !important;
+        place-items: center !important;
+        flex: 0 0 34px !important;
+        width: 34px !important;
+        height: 34px !important;
+        border: 1px solid rgba(234, 213, 146, 0.46) !important;
+        border-radius: 50% !important;
+        color: #ead592 !important;
+        background: rgba(234, 213, 146, 0.1) !important;
+        font-size: 11px !important;
+      }
+
+      #assistantPage .assistant-message--user .assistant-avatar {
+        display: none !important;
+      }
+
+      #assistantPage .assistant-bubble {
+        max-width: min(760px, calc(100% - 54px)) !important;
+        border: 0 !important;
+        padding: 0 !important;
+        color: rgba(243, 240, 232, 0.92) !important;
+        background: transparent !important;
+        font-size: 18px !important;
+        line-height: 1.85 !important;
+      }
+
+      #assistantPage .assistant-message--user .assistant-bubble {
+        max-width: min(700px, 82%) !important;
+        border-radius: 22px !important;
+        padding: 15px 20px !important;
+        color: rgba(255, 255, 255, 0.94) !important;
+        background: #2f2f2f !important;
+      }
+
+      #assistantPage .assistant-input {
+        position: relative !important;
+        z-index: 2 !important;
+        display: grid !important;
+        grid-template-columns: 34px minmax(0, 1fr) 52px !important;
+        align-items: end !important;
+        gap: 10px !important;
+        margin: 0 24px 24px !important;
+        border: 1px solid rgba(255, 255, 255, 0.08) !important;
+        border-radius: 28px !important;
+        padding: 9px 9px 9px 15px !important;
+        background: #252525 !important;
+        box-shadow: 0 18px 60px rgba(0, 0, 0, 0.58), inset 0 1px 0 rgba(255, 255, 255, 0.06) !important;
+      }
+
+      #assistantPage .assistant-input::before {
+        content: "+" !important;
+        display: grid !important;
+        place-items: center !important;
+        width: 34px !important;
+        height: 42px !important;
+        color: rgba(243, 240, 232, 0.72) !important;
+        font-size: 29px !important;
+      }
+
+      #assistantPage .assistant-input textarea {
+        grid-column: 2 !important;
+        resize: none !important;
+        min-height: 42px !important;
+        max-height: 150px !important;
+        border: 0 !important;
+        padding: 9px 0 !important;
+        color: rgba(255, 255, 255, 0.94) !important;
+        background: transparent !important;
+        font-size: 18px !important;
+        line-height: 1.5 !important;
+        outline: none !important;
+        box-shadow: none !important;
+      }
+
+      #assistantPage .assistant-input textarea::placeholder {
+        color: rgba(243, 240, 232, 0.42) !important;
+      }
+
+      #assistantPage .assistant-input button {
+        grid-column: 3 !important;
+        display: grid !important;
+        place-items: center !important;
+        width: 48px !important;
+        height: 48px !important;
+        min-width: 0 !important;
+        border: 0 !important;
+        border-radius: 50% !important;
+        padding: 0 !important;
+        color: #050505 !important;
+        background: #f3f0e8 !important;
+        font-size: 0 !important;
+        clip-path: none !important;
+        box-shadow: none !important;
+      }
+
+      #assistantPage .assistant-input button::before {
+        content: "↑" !important;
+        font-size: 25px !important;
+        font-weight: 900 !important;
+      }
+    </style>  <style id="character-directory-critical-style">
+  #resonatorPage .character-directory {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    grid-auto-flow: row !important;
+    grid-auto-rows: max-content !important;
+    align-content: start !important;
+    gap: 12px !important;
+  }
+
+  #resonatorPage .character-directory > .eyebrow,
+  #resonatorPage .character-directory > h2,
+  #resonatorPage .character-directory > .character-search,
+  #resonatorPage .character-directory > .version-tree {
+    grid-column: 1 / -1 !important;
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  #resonatorPage .character-directory > h2 {
+    margin: 0 0 2px !important;
+  }
+</style>
+  <style id="cursor-usability-critical-style">
+  html, body { cursor: auto !important; }
+  #customCursor, #customCursor *, #customCursor::before, #customCursor::after {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+  }
+  button, a, summary, [role="button"], .character-entry {
+    cursor: pointer !important;
+  }
+  input, textarea, [contenteditable="true"] {
+    cursor: text !important;
+  }
+</style>
+      <link rel="stylesheet" href="./yellow-white.css?v=20260729_score_label_v1" />
+  </head>
+  <body>
+    <nav class="site-nav" aria-label="主导航">
+      <div class="site-nav__links" role="tablist" aria-label="页面切换">
+        <button class="is-current" type="button" data-page-target="resonatorPage">角色</button>
+        <button type="button" data-page-target="assistantPage">助手</button>
+      </div>
+    </nav>
+
+    <main class="app-shell">
+      <header class="topbar">
+        <div class="hero-copy">
+          <p class="eyebrow">GAMERPULSE // GAME INTELLIGENCE</p>
+          <h1>GamePalse</h1>
+          <p class="summary">
+            面向游戏项目的角色风险与项目情报分析界面。页面保留角色档案和 AI 情报助手，并使用黑白金细线风格组织信息层级。
+          </p>
+        </div>
+
+        <div class="topbar-actions">
+          <div class="radar-loader" aria-label="实时雷达扫描进度">
+            <span class="radar-loader__sweep"></span>
+            <span class="radar-loader__dot"></span>
+          </div>
+          <button class="ghost-button export-report-button" id="exportReportButton" type="button">导出报告</button>
+        </div>
+      </header>
+
+      <section class="page-screen page-screen--active pending-page" id="resonatorPage" aria-label="共鸣者页面">
+        <div class="character-browser">
+          <aside class="character-directory">
+            <p class="eyebrow">CHARACTER INDEX</p>
+            <h2>角色目录</h2>
+            <form class="character-search" id="characterSearchForm" role="search" aria-label="搜索角色名">
+              <label for="characterSearchInput">角色检索</label>
+              <div class="character-search__control">
+                <input id="characterSearchInput" type="search" list="characterSearchList" autocomplete="off" placeholder="输入角色名，例如：秧秧" />
+                <button type="submit">跳转</button>
+              </div>
+              <datalist id="characterSearchList"></datalist>
+              <p id="characterSearchStatus">输入角色名后按 Enter 定位角色。</p>
+            </form>
+            <div class="version-tree" id="versionTree"></div>
+          </aside>
+          <section class="character-detail" aria-label="角色详情">
+            <div class="portrait-placeholder" id="portraitPlaceholder">
+              <span>立绘区域留白</span>
+            </div>
+            <article class="character-text-placeholder">
+              <div>
+                <span class="detail-label">Selected Character</span>
+                <h2 id="selectedCharacterName">请选择角色</h2>
+                <p id="selectedCharacterMeta">从左侧版本目录中选择一个角色后，此处将展示对应角色文本区域。</p>
+              </div>
+              <section class="character-risk-panel" id="characterRiskPanel" aria-label="风险警告"></section>
+              <section class="character-keyword-panel" id="characterKeywordPanel" aria-label="关键词"></section>
+              <section class="character-story-panel" id="characterStoryPanel" aria-label="个人故事"></section>
+              <div class="blank-text-block">
+                <span>文本区域留白</span>
+              </div>
+            </article>
+          </section>
+        </div>
+      </section>
+
+      <section class="page-screen" id="assistantPage" aria-label="AI 助手页面">
+        <section class="assistant-shell" aria-label="GamerPulse AI 助手聊天框">
+          <aside class="assistant-plugin-rail" aria-label="助手插件栏">
+            <div class="assistant-plugin-orb" aria-hidden="true"></div>
+            <div class="assistant-plugin-stack">
+              <div class="assistant-plugin-item" tabindex="0">
+                <span>GP</span>
+                <div class="assistant-plugin-drawer">
+                  <strong>GamerPulse</strong>
+                  <p>项目情报总览入口，当前聚焦角色风险与报告整理。</p>
+                </div>
+              </div>
+              <div class="assistant-plugin-item assistant-plugin-item--primary" tabindex="0">
+                <span>AI</span>
+                <div class="assistant-plugin-drawer assistant-plugin-drawer--wide">
+                  <p class="eyebrow">AI ASSISTANT</p>
+                  <strong>情报助手</strong>
+                  <p>用于快速询问角色风险和报告整理。已接入 GamePulse 总控 Agent，可实时显示 Agent / Tool 调用链路。</p>
+                  <div class="assistant-plugin-actions" aria-label="快捷问题">
+                    <button type="button" data-assistant-prompt="总结当前角色的主要风险">总结角色风险</button>
+                    <button type="button" data-assistant-prompt="生成一段适合周报的前端进展描述">生成周报描述</button>
+                  </div>
+                </div>
+              </div>
+              <div class="assistant-plugin-item assistant-plugin-item--db" tabindex="0">
+                <span>DB</span>
+                <div class="assistant-plugin-drawer assistant-plugin-drawer--db">
+                  <strong>Data Bridge</strong>
+                  <p>展示当前 GamePulse 内置数据库状态、表结构和记录量。</p>
+                  <div class="database-panel" id="databasePanel" aria-live="polite">
+                    <div class="database-panel__empty">正在读取数据库摘要...</div>
+                  </div>
+                </div>
+              </div>
+              <div class="assistant-plugin-item assistant-plugin-item--log" tabindex="0">
+                <span>LOG</span>
+                <div class="assistant-plugin-drawer assistant-plugin-drawer--log">
+                  <strong>Operation Log</strong>
+                  <p>记录本轮 Agent 调用步骤、Tool 返回和接口响应状态。</p>
+                  <div class="operation-log" id="operationLog" aria-live="polite">
+                    <div class="operation-log__item operation-log__item--idle">
+                      <span class="operation-log__time">--:--:--</span>
+                      <span class="operation-log__tag">READY</span>
+                      <span class="operation-log__text">等待新的助手请求。</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </aside>
+          <aside class="assistant-brief">
+            <p class="eyebrow">AI ASSISTANT</p>
+            <h2>情报助手</h2>
+            <p>用于快速询问角色风险和报告整理。已接入 GamePulse 总控 Agent，可实时显示 Agent / Tool 调用链路。</p>
+            <div class="assistant-prompt-chips" aria-label="快捷问题">
+              <button type="button" data-assistant-prompt="总结当前角色的主要风险">总结角色风险</button>
+              <button type="button" data-assistant-prompt="生成一段适合周报的前端进展描述">生成周报描述</button>
+            </div>
+          </aside>
+
+          <section class="assistant-chat" aria-label="聊天窗口">
+            <div class="assistant-chat__header">
+              <div>
+                <span>GAMERPULSE AGENT</span>
+                <strong>项目智能助手</strong>
+              </div>
+              <small>Local Preview</small>
+            </div>
+            <section class="agent-flow" id="agentFlow" aria-label="Agent 工作流程状态">
+              <div class="agent-flow__head">
+                <span>AGENT PIPELINE</span>
+                <strong id="agentFlowStatus">待命：等待输入</strong>
+              </div>
+              <div class="agent-flow__stream" aria-hidden="true"><span></span></div>
+              <div class="agent-flow__steps">
+                <div class="agent-flow__step is-active" data-agent-step="0"><span>01</span><strong>接收问题</strong><small>Input Capture</small></div>
+                <div class="agent-flow__step" data-agent-step="1"><span>02</span><strong>识别意图</strong><small>Intent Parse</small></div>
+                <div class="agent-flow__step" data-agent-step="2"><span>03</span><strong>调取上下文</strong><small>Context Pull</small></div>
+                <div class="agent-flow__step" data-agent-step="3"><span>04</span><strong>风险推理</strong><small>Risk Reason</small></div>
+                <div class="agent-flow__step" data-agent-step="4"><span>05</span><strong>生成回复</strong><small>Answer Compose</small></div>
+              </div>
+            </section>            <div class="assistant-messages" id="assistantMessages" aria-live="polite">
+              <article class="assistant-message assistant-message--ai">
+                <div class="assistant-avatar">AI</div>
+                <div class="assistant-bubble">
+                  <p>你好，我是 GamerPulse 情报助手。你可以问我角色风险，也可以让我帮你整理报告话术。</p>
+                </div>
+              </article>
+            </div>
+            <form class="assistant-input" id="assistantForm">
+              <textarea id="assistantInput" rows="2" placeholder="输入问题，例如：帮我总结当前角色风险" aria-label="向助手提问"></textarea>
+              <button class="primary-action" type="submit">发送</button>
+            </form>
+          </section>
+        </section>
+      </section>
+    </main>
+
+    <div class="network-banner" id="networkBanner" hidden></div>
+
+    <div class="network-overlay" id="networkOverlay" hidden>
+      <section class="network-panel" role="alertdialog" aria-modal="true" aria-labelledby="networkTitle">
+        <p class="eyebrow">NETWORK SAFE MODE</p>
+        <h2 id="networkTitle">后台连接暂时不可用</h2>
+        <p id="networkMessage">当前页面已切换到本地兜底数据，演示可以继续进行。请检查 FastAPI 后端或网络连接后重试。</p>
+        <div class="network-actions">
+          <button class="ghost-button" id="retryNetworkButton" type="button">重新连接</button>
+          <button class="ghost-button ghost-button--quiet" id="dismissNetworkButton" type="button">继续演示</button>
+        </div>
+      </section>
+    </div>
+
+    <div class="tooltip" id="violationTooltip" role="tooltip"></div>
+
+    <div class="modal-layer" id="sourceOverlay" hidden>
+      <section class="source-dialog" id="sourceDialog" role="dialog" aria-modal="true" aria-labelledby="dialogTitle">
+        <div class="dialog-header">
+          <div>
+            <p class="eyebrow">Traceability</p>
+            <h2 id="dialogTitle">原帖穿透查看</h2>
+          </div>
+          <button class="ghost-button" id="closeDialogButton" type="button">关闭</button>
+        </div>
+        <div class="source-list" id="sourceList"></div>
+      </section>
+    </div>
+
+    <div id="customCursor" aria-hidden="true">
+      <span></span>
+    </div>
+
+    <script type="module" src="./app.js?v=20260729_score_label_v1"></script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

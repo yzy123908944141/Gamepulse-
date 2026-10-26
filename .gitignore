@@ -1,0 +1,44 @@
+# Credentials and machine-local configuration
+.env
+.env.*
+!.env.example
+**/secrets/
+*.key
+*.pem
+*.p12
+*.pfx
+
+# Local runtime and dependencies
+.venv/
+node_modules/
+__pycache__/
+*.py[cod]
+*.log
+dist/
+build/
+*-wal
+*-shm
+gamerpulse_memory.db
+
+# Databases, scraped comments, generated analysis and RAG data
+*.db
+*.sqlite3
+*.csv
+*.xlsx
+*.xls
+*.parquet
+*.bin
+*.pickle
+agent/vendor_tools/character_outputs/
+agent/vendor_tools/story_library/
+agent/vendor_tools/world_outlook/
+reports/
+
+# Character artwork and other media
+frontend_assistant_yellow_white/frontend_yellow_white_fastapi_package_20260729/assets/characters/*
+!frontend_assistant_yellow_white/frontend_yellow_white_fastapi_package_20260729/assets/characters/README.md
+*.jpg
+*.jpeg
+*.png
+*.webp
+*.gif

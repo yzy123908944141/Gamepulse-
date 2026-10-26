@@ -1,0 +1,88 @@
+{
+  "name": "scan_character_library",
+  "description": "扫描角色库，对新增或原文变化的角色调用总结器，生成面向上层 Agent 的短版角色上下文 JSON：基本信息仅含职业、身份、阵营，性格、背景、目标动机为简短概括，主要关系为短关系列表。本工具只负责角色资料压缩与增量状态管理，不负责角色评价、剧情质量评价、舆情总结或总控 Agent 编排。",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "character_library_path": {
+        "type": "string",
+        "description": "角色库目录，支持角色 JSON 文件或角色子目录。",
+        "default": "./characters"
+      },
+      "output_json_path": {
+        "type": "string",
+        "description": "结构化角色 JSON 输出目录。",
+        "default": "./outputs/character_json"
+      },
+      "output_document_path": {
+        "type": "string",
+        "description": "Markdown 角色档案汇总输出路径。",
+        "default": "./outputs/角色档案汇总.md"
+      },
+      "force_rescan": {
+        "type": "boolean",
+        "description": "是否忽略索引状态并重新总结全部角色。",
+        "default": false
+      }
+    },
+    "required": ["character_library_path"],
+    "additionalProperties": false
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "success": {
+        "type": "boolean"
+      },
+      "total_characters": {
+        "type": "integer"
+      },
+      "new_characters": {
+        "type": "integer"
+      },
+      "updated_characters": {
+        "type": "integer"
+      },
+      "skipped_characters": {
+        "type": "integer"
+      },
+      "failed_characters": {
+        "type": "integer"
+      },
+      "processed_character_ids": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "failed_items": {
+        "type": "array",
+        "items": {
+          "type": "object"
+        }
+      },
+      "document_path": {
+        "type": "string"
+      },
+      "warnings": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "required": [
+      "success",
+      "total_characters",
+      "new_characters",
+      "updated_characters",
+      "skipped_characters",
+      "failed_characters",
+      "processed_character_ids",
+      "failed_items",
+      "document_path",
+      "warnings"
+    ],
+    "additionalProperties": false
+  }
+}

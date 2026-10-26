@@ -1,0 +1,66 @@
+{
+  "name": "query_story_context",
+  "description": "从剧情资料库中检索相关章节、任务或场景片段，再调用模型生成结构化剧情概括。只用于剧情事实检索与概括，不负责角色评分、剧情评分或舆情分析。不会把整个剧情库发送给模型，source_refs 由程序根据实际检索结果生成或校验。",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "query": {
+        "type": "string",
+        "minLength": 1
+      },
+      "story_library_path": {
+        "type": "string",
+        "default": "./story_library"
+      },
+      "top_k": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 20,
+        "default": 8
+      },
+      "force_reindex": {
+        "type": "boolean",
+        "default": false
+      }
+    },
+    "required": ["query"],
+    "additionalProperties": false
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "query": {
+        "type": "string"
+      },
+      "characters": {
+        "type": "array"
+      },
+      "story": {
+        "type": "object"
+      },
+      "background_setting": {
+        "type": "object"
+      },
+      "source_refs": {
+        "type": "array"
+      },
+      "information_gaps": {
+        "type": "array"
+      },
+      "confidence": {
+        "type": "string",
+        "enum": ["high", "low", "medium"]
+      }
+    },
+    "required": [
+      "query",
+      "characters",
+      "story",
+      "background_setting",
+      "source_refs",
+      "information_gaps",
+      "confidence"
+    ],
+    "additionalProperties": true
+  }
+}

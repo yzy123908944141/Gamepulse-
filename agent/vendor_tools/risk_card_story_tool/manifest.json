@@ -1,0 +1,19 @@
+﻿{
+    "name":  "risk_card_story_tool",
+    "purpose":  "从 agent.db.analysis_results.risk_warnings 中筛选剧情/角色受众强相关风险，并调用 DeepSeek/OpenAI-compatible API 总结为风险卡摘要。",
+    "entry":  "compress_risk_titles.py",
+    "default_output":  "record/story_risk_summary 或脚本 --out 指定目录",
+    "included":  [
+                     "compress_risk_titles.py",
+                     "README.md",
+                     "run_deepseek_example.ps1",
+                     "check_without_api.bat",
+                     "examples/latest sample outputs"
+                 ],
+    "excluded":  [
+                     "agent.db",
+                     "API Key",
+                     "__pycache__"
+                 ],
+    "created_at":  "2026-07-28 04:01:47"
+}

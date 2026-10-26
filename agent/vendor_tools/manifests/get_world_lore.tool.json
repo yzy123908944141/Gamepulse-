@@ -1,0 +1,87 @@
+{
+  "name": "get_world_lore",
+  "description": "查询《鸣潮》的基础世界观、灾害体系、共鸣者、文明级存在、地区组织和漂泊者相关设定。只用于世界观事实查询，不负责评价剧情或分析角色。不得根据 world.txt 之外的信息补充设定；找不到答案时必须返回未找到。索诺拉中的内容不一定等同于客观事实；岁主不能简单等同于全知神明；鸣式与普通残象不是同一层级；漂泊者真实身份属于主线谜团，不能擅自下定论。回答中应尽可能保留原文术语，并注明内容来自 data/world.txt。",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "query": {
+        "type": "string",
+        "description": "Agent 想查询的《鸣潮》世界观问题或主题。",
+        "minLength": 1
+      },
+      "section": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "description": "可选检索范围。为空时检索全部世界观文档。",
+        "enum": [
+          null,
+          "world_overview",
+          "world_rules",
+          "disaster_system",
+          "echo_and_sonoro",
+          "resonators",
+          "civilization_entities",
+          "regions_and_factions",
+          "rover"
+        ],
+        "default": null
+      },
+      "max_chars": {
+        "type": "integer",
+        "description": "返回 content 的最大字符数。",
+        "minimum": 1,
+        "maximum": 12000,
+        "default": 3000
+      }
+    },
+    "required": [
+      "query"
+    ],
+    "additionalProperties": false
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "success": {
+        "type": "boolean"
+      },
+      "query": {
+        "type": "string"
+      },
+      "matched_sections": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "content": {
+        "type": "string"
+      },
+      "source": {
+        "type": "string",
+        "const": "data/world.txt"
+      },
+      "truncated": {
+        "type": "boolean"
+      },
+      "warnings": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "required": [
+      "success",
+      "query",
+      "matched_sections",
+      "content",
+      "source",
+      "truncated",
+      "warnings"
+    ],
+    "additionalProperties": false
+  }
+}
