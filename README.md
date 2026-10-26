@@ -47,34 +47,35 @@ GamePulse/
 
 ## 4. 首次启动
 
+以下命令均在**项目根目录**执行，即包含 `main.py`、`requirements_backend.txt` 和 `启动GamePulse.bat` 的文件夹。可在该文件夹的文件资源管理器地址栏输入 `powershell` 并按 Enter，直接在此处打开终端。
+
 ### 方式 A：双击启动
 
-双击项目根目录中的 `启动GamePulse.bat`。脚本会：
+双击项目根目录中的 `启动GamePulse.bat`。脚本会根据自身位置定位项目，首次运行时创建 `.venv`、安装后端依赖，然后启动 FastAPI 并打开前端页面。
 
-1. 从 `.bat` 文件所在目录定位项目根目录，不依赖固定的 `D:\program\GamePulse` 路径。
-2. 若项目内没有 `.venv`，创建虚拟环境并安装 `requirements_backend.txt` 中的依赖。
-3. 检查现有虚拟环境的依赖；发现缺失时尝试补装。
-4. 启动 FastAPI，并在浏览器打开前端页面。
-
-首次依赖安装可能需要几分钟。保持命令行窗口开启；关闭窗口会停止服务。
+首次安装依赖可能需要几分钟。使用期间请保持命令行窗口开启；关闭窗口会停止服务。
 
 ### 方式 B：PowerShell 手动启动
 
+在项目根目录打开 PowerShell，执行：
+
 ```powershell
-cd D:\program\GamePulse-ultimate\GamePulse
 python -m venv .venv
 .\.venv\Scripts\python.exe -m pip install --upgrade pip
 .\.venv\Scripts\python.exe -m pip install -r requirements_backend.txt
 .\.venv\Scripts\python.exe -m uvicorn main:app --host 127.0.0.1 --port 8000
 ```
 
-如果 `.venv` 已存在，不需要再次创建。修复缺失依赖时可执行：
+如果 `.venv` 已存在，跳过第一行。以后启动通常只需执行最后一行。
+
+若提示缺少 Python 模块，在项目根目录重新安装依赖并检查环境：
 
 ```powershell
-cd D:\program\GamePulse-ultimate\GamePulse
 .\.venv\Scripts\python.exe -m pip install -r requirements_backend.txt
 .\.venv\Scripts\python.exe -m pip check
 ```
+
+启动后访问 `http://127.0.0.1:8000/frontend/`。
 
 ### 访问地址
 
