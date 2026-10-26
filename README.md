@@ -1,6 +1,6 @@
 # GamePulse 使用与部署说明
 
-GamePulse 是一个面向游戏项目的情报分析与剧本辅助工作台。此版本由 FastAPI 提供后端接口和静态前端页面，使用 SQLite 保存角色、评论、分析结果和聊天记录，并通过 OpenAI 兼容接口调用 DeepSeek 等大模型。
+GamePulse 是一个面向游戏项目的情报分析与剧本辅助工作台。此版本由 FastAPI 提供后端接口和静态前端页面，使用 SQLite 保存角色、评论、分析结果和聊天记录，并通过 OpenAI 兼容接口调用 DeepSeek 等大模型。本项目为2024级nku的暑期实训项目，主要为参考价值的demo
 
 本文面向首次运行、API 配置、数据库迁移和常见故障排查。默认项目目录为 `D:\program\GamePulse-ultimate\GamePulse`；如果项目移动到其他位置，请以实际路径替换示例。
 
